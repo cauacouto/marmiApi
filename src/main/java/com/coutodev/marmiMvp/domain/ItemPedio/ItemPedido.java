@@ -20,12 +20,58 @@ public class ItemPedido {
 @JoinColumn(name = "refeicao_id")
 private Refeicao refeicao;
 
-private Boolean precoUnitario;
+private BigDecimal precoUnitario;
     @ManyToOne
     @JoinColumn(name = "pedido_id")
     private Pedido pedido;
 
     private BigDecimal subTotal;
 
-    // criar migration
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public Refeicao getRefeicao() {
+        return refeicao;
+    }
+
+    public void setRefeicao(Refeicao refeicao) {
+        this.refeicao = refeicao;
+    }
+
+    public BigDecimal getPrecoUnitario() {
+        return precoUnitario;
+    }
+
+    public void setPrecoUnitario(BigDecimal precoUnitario) {
+        this.precoUnitario = precoUnitario;
+    }
+
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
+    }
+
+    public BigDecimal getSubTotal() {
+        return subTotal;
+    }
+
+    public void setSubTotal(BigDecimal subTotal) {
+        this.subTotal = subTotal;
+    }
 }
