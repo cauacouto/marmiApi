@@ -2,6 +2,7 @@ package com.coutodev.marmiMvp.domain.Pedido;
 
 import com.coutodev.marmiMvp.DTO.CriarPedidoDTO;
 import com.coutodev.marmiMvp.DTO.ItemPedidoDto;
+import com.coutodev.marmiMvp.Exception.RegraNegocioException;
 import com.coutodev.marmiMvp.domain.ItemPedio.ItemPedido;
 import com.coutodev.marmiMvp.domain.Refeicoes.Refeicao;
 import com.coutodev.marmiMvp.domain.Refeicoes.RefeicaoRepository;
@@ -30,7 +31,7 @@ public class PedidoService {
 
     public Pedido criarPedido(CriarPedidoDTO dto){
         Usuario usuario = usuarioRepository.findById(dto.usuarioId())
-                .orElseThrow(()-> new RuntimeException("usuario não encontrado"));
+                .orElseThrow(()-> new RegraNegocioException("usuario não encontrado"));
         Pedido pedido = new Pedido();
         pedido.setUsuario(usuario);
         pedido.setStatusPedido(StatusPedido.RECEBIDO);
@@ -39,7 +40,7 @@ public class PedidoService {
 
         for (ItemPedidoDto itemDTO : dto.itens()){
             Refeicao refeicao = refeicaoRepository.findById(itemDTO.refeicaoId())
-                    .orElseThrow(()-> new RuntimeException("refeição não encontrada"));
+                    .orElseThrow(()-> new RegraNegocioException("refeição não encontrada"));
 
             ItemPedido item = new ItemPedido();
             item.setRefeicao(refeicao);
@@ -64,4 +65,5 @@ public class PedidoService {
         return pedidoRepository.save(pedido);
 
     }
+
 }
