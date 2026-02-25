@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/refeicao")
 public class RefeicaoController {
@@ -22,8 +24,8 @@ private final RefeicaoService refeicaoService;
 
     }
 @PostMapping
-    public ResponseEntity<RefeicaoResponseDto> criarRefeicao(@RequestBody CriarRefeicaoDto dto){
-       RefeicaoResponseDto response = refeicaoService.criarRefeicao(dto);
+    public ResponseEntity<RefeicaoResponseDto> criarRefeicao(@RequestBody CriarRefeicaoDto dto,UUID id){
+       RefeicaoResponseDto response = refeicaoService.criarRefeicao(dto,id);
        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }

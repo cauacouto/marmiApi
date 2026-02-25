@@ -8,6 +8,8 @@ import com.coutodev.marmiMvp.domain.Parceiros.Parceiro;
 import com.coutodev.marmiMvp.domain.Parceiros.ParceiroRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class RefeicaoService {
 
@@ -21,8 +23,8 @@ public class RefeicaoService {
         this.refeicaoMapper = refeicaoMapper;
     }
 
-    public RefeicaoResponseDto criarRefeicao(CriarRefeicaoDto dto){
-        Parceiro parceiro = parceiroRepository.findById(dto.parceiroId())
+    public RefeicaoResponseDto criarRefeicao(CriarRefeicaoDto dto, UUID id){
+        Parceiro parceiro = parceiroRepository.findById(id)
                 .orElseThrow(()-> new RegraNegocioException("parceiro não encontrado"));
 
         Refeicao refeicao = refeicaoMapper.toEntity(dto);
