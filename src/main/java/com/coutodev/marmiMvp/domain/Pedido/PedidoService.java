@@ -2,7 +2,9 @@ package com.coutodev.marmiMvp.domain.Pedido;
 
 import com.coutodev.marmiMvp.DTO.CriarPedidoDTO;
 import com.coutodev.marmiMvp.DTO.ItemPedidoDto;
+import com.coutodev.marmiMvp.DTO.PedidoResponseDto;
 import com.coutodev.marmiMvp.Exception.RegraNegocioException;
+import com.coutodev.marmiMvp.Mapper.PedidoMapper;
 import com.coutodev.marmiMvp.domain.ItemPedio.ItemPedido;
 import com.coutodev.marmiMvp.domain.Refeicoes.Refeicao;
 import com.coutodev.marmiMvp.domain.Refeicoes.RefeicaoRepository;
@@ -21,15 +23,17 @@ public class PedidoService {
     private final UsuarioRepository usuarioRepository;
     private final RefeicaoRepository refeicaoRepository;
     private final PedidoRepository pedidoRepository;
+    private final PedidoMapper pedidoMapper;
 
-    public PedidoService(UsuarioRepository usuarioRepository, RefeicaoRepository refeicaoRepository, PedidoRepository pedidoRepository) {
+    public PedidoService(UsuarioRepository usuarioRepository, RefeicaoRepository refeicaoRepository, PedidoRepository pedidoRepository, PedidoMapper pedidoMapper) {
         this.usuarioRepository = usuarioRepository;
         this.refeicaoRepository = refeicaoRepository;
         this.pedidoRepository = pedidoRepository;
+        this.pedidoMapper = pedidoMapper;
     }
 
-
-    public Pedido criarPedido(CriarPedidoDTO dto){
+//implementar pagamento e fazer o service de item para listar os itens atraves do id
+    public PedidoResponseDto criarPedido(CriarPedidoDTO dto){
         Usuario usuario = usuarioRepository.findById(dto.usuarioId())
                 .orElseThrow(()-> new RegraNegocioException("usuario não encontrado"));
         Pedido pedido = new Pedido();
@@ -62,7 +66,9 @@ public class PedidoService {
                 .reduce(BigDecimal.ZERO,BigDecimal::add);
         pedido.setValorTotal(total);
 
-        return pedidoRepository.save(pedido);
+        Pedido pedidoSalvo = pedidoRepository.save(pedido);
+
+        return pedidoMapper.toResponseDto(pedidoSalvo);
 
     }
 
