@@ -22,13 +22,12 @@ public class Usuario {
     private String senha;
     @OneToMany(mappedBy = "usuario")
     private List<Pedido> pedidos = new ArrayList<>();
-    // atualizar a migration que eu coloquei uma lista de pedidos
+   
 
-    public Usuario(UUID id, String nome, String email, String senha) {
-        this.id = id;
-        this.nome = nome;
-        this.email = email;
-        this.senha = senha;
+    public Usuario( UsuarioDto dto) {
+        this.nome = dto.nome();
+        this.email = dto.email();
+        this.senha = dto.senha();
     }
     public Usuario(){}
 
