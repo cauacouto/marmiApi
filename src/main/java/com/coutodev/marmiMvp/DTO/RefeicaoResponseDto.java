@@ -11,7 +11,7 @@ public record RefeicaoResponseDto (
          Double gorduras,
         BigDecimal preco,
         Boolean ativo,
-         ParceiroResponseDto parceiro
+        ParceiroResponse parceiro
 
 ){
 
