@@ -7,5 +7,10 @@ import java.util.UUID;
 
 public record PedidoResponseDto(UUID id,
                                 BigDecimal valorTotal,
-                                StatusPedido pedido) {
-}
+                              StatusPedido  statusPedido) {
+
+
+
+
+        }
+
